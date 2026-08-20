@@ -168,32 +168,12 @@ public class App { // ★変更
       } else if (path.equals("/") && method.equals("GET")) {
 
         // 入力フォームとTodo一覧をHTMLで作ります。
-        String html = "<html><head>";
-        // 一覧画面を見やすくするためのCSSを追加します。
-        html += "<style>"
-          + "body{font-family:Arial,sans-serif;background:#f4f6f8;margin:0;padding:30px;}"
-          + ".todo-container{max-width:600px;margin:0 auto;background:white;padding:24px;border-radius:8px;}"
-          + "h1{color:#333;margin-top:0;}"
-          + "form{display:flex;gap:8px;margin-bottom:24px;}"
-          + "input{flex:1;padding:10px;font-size:16px;border:1px solid #bbb;border-radius:4px;}"
-          + "button,.action{padding:10px 14px;font-size:15px;border:0;border-radius:4px;cursor:pointer;}"
-          + "button{background:#2d7dd2;color:white;}"
-          + "ul{padding:0;list-style:none;}"
-          + "li{display:flex;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #ddd;}"
-          + ".todo-title{flex:1;}"
-          + ".action{text-decoration:none;background:#e8eef5;color:#24527a;}"
-          + ".delete{background:#f7dddd;color:#9b2c2c;}"
-          + ".count{color:#555;font-weight:bold;margin:16px 0;}"
-          + "</style></head><body>";
-        // Todoリスト全体を囲んで、余白をつけます。
-        html += "<main class='todo-container'>";
-        // 入力欄と追加ボタンを横並びにして、押しやすくします。
+        String html = "<html><body>";
         html += "<form method='post' action='/add'>";
         html += "<input type='text' name='todo' />";
         html += "<button type='submit'>追加</button>";
         html += "</form>";
-        // 見出しを大きく分かりやすく表示します。
-        html += "<h1>Todoリスト</h1>";
+        html += "<h2>Todo一覧</h2>";
 
         // 完了したTodoの件数を数えるための変数です。
         int completedCount = 0;
@@ -208,18 +188,16 @@ public class App { // ★変更
             completedCount++;
           } // 終わった印は第14章のまま ★追加
 
-          // Todoの内容と操作ボタンを、見やすい行として表示します。
-          html += "<li><span class='todo-title'>" + todo.getTitle() + mark
-              + "</span> <a class='action' href='/done?id=" + todo.getId() + "'>完了</a>"
-              + " <a class='action delete' href='/delete?id=" + todo.getId() + "'>削除</a></li>";
+          html += "<li>" + todo.getTitle() + mark
+              + " <a href='/done?id=" + todo.getId() + "'>完了</a>" // ★追加
+              + " <a href='/delete?id=" + todo.getId() + "'>削除</a></li>"; // ★追加
         }
 
         // Todoの総件数と、完了したTodoの件数を画面に表示します。
-        html += "<p class='count'>" + todos.size() + "件中" + completedCount + "件 完了</p>";
+        html += "<p>" + todos.size() + "件中" + completedCount + "件 完了</p>";
 
         html += "</ul>";
-        // Todoリスト全体の囲みを閉じます。
-        html += "</main></body></html>";
+        html += "</body></html>";
 
         message = html;
 
