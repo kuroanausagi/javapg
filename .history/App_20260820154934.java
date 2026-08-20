@@ -191,9 +191,6 @@ public class App { // ★変更
               + " <a href='/delete?id=" + todo.getId() + "'>削除</a></li>"; // ★追加
         }
 
-        // Todoの総件数と、完了したTodoの件数を画面に表示します。
-        html += "<p>" + todos.size() + "件中" + completedCount + "件 完了</p>";
-
         html += "</ul>";
         html += "</body></html>";
 
